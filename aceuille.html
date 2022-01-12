@@ -48,11 +48,11 @@
             <input class="form-control me-2" type="search" id="searchText" onkeyup="searchPokemon()" placeholder="Pokemon" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Rechercher</button>
         </form>
+        <input id="searchBox" class="position-absolute" type="text" readonly="true" onclick="choosePokemon()">
     </div>
 </nav>
 
 <body>
-<input id="searchBox" type="text" readonly="true" onclick="choosePokemon()">
 
 <div class="container">
     <div class="row row-cols-1 row-cols-md-4 g-4">
