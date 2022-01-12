@@ -2,3 +2,9 @@
     height: 600px;
     background-color: red;
 }
+
+#searchBox {
+    position: absolute;
+    right: 50px;
+    top: 100px;
+}
