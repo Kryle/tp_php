@@ -4,51 +4,47 @@
     <meta charset="UTF-8">
     <title>Pokedex</title>
 
-    <link rel="stylesheet" href="css/aceuille.css" >
     <link rel="stylesheet" href="css/bootstrap.min.css" >
 
 </head>
 
 <script>
     function searchPokemon(){
-        var xhr;
-        var saisie;
-
-        xhr = new XHMLHttpRequest();
+        var saisie = document.getElementById("searchText").value;
+        xhr = new XMLHttpRequest();
+        var select = document.getElementById("selectBar");
+        var option = document.createElement('option');
 
         xhr.onreadystatechange = function(){
             if((xhr.readyState == 4) && (xhr.status == 200)){
-
+                option.appendChild(document.createTextNode(xhr.responseText))
+                option.value = xhr.responseText;
+                select.appendChild(option);
             }
         };
-        saisie = document.getElemendById("searchText").value;
-        if(saisie.size >= 3){
+        if(saisie.length >= 3){
             xhr.open("GET", "search.php?searchText="+saisie, true);
+            xhr.send(null);
+            select.removeChild(select.options[1]);
         }
     }
 
     function choosePokemon(){
-        var xhr;
-        var saisie;
-
-        xhr = new XHMLHttpRequest();
-
-        xhr.onreadystatechange = function(){
-            if((xhr.readyState == 4) && (xhr.status == 200)){
-                // todo
-            }
-        };
+        var select = document.getElementById("selectBar");
+        var value = select.options[select.selectedIndex].value;
+        window.location.replace("pokemonFiche.php?nom="+value);
     }
 </script>
 
 <nav class="navbar navbar-light" style="background-color: red; margin-bottom:  10px;" >
     <div class="container-fluid">
         <a class="navbar-brand" href="#" >Pokedex</a>
-        <form class="d-flex" action="pokemonFiche.html">
-            <input class="form-control me-2" type="search" id="searchText" onkeyup="searchPokemon()" placeholder="Pokemon" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Rechercher</button>
-        </form>
-        <input id="searchBox" class="position-absolute" type="text" readonly="true" onclick="choosePokemon()">
+        <div class="d-flex">
+            <input type="text" id="searchText" onkeyup="searchPokemon()">
+            <select id="selectBar" onchange="choosePokemon()">
+                <option value ="">Choisissez un pokémon</option>
+            </select>
+        </div>
     </div>
 </nav>
 
